@@ -2,23 +2,17 @@ package com.teszt.service;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import com.teszt.entity.User;
-import com.teszt.repository.UserRepository;
 
-@Service
-public class UserService {
-
-	private UserRepository userRepo;
-
-	@Autowired
-	public void setUserRepo(UserRepository userRepo) {
-		this.userRepo = userRepo;
-	}
+public interface UserService {
 	
-	public List<User> getUsers(){
-		return userRepo.findAll();
-	}
+	public User findByEmail(String email);
+
+	public void registerUser(User user);
+	
+	public List<User> getUsers();
+
+	public boolean saveUser(String name, String email);
+
+	public boolean deleteUser(Integer userId);
 }

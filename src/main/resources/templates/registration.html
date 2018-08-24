@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+<title>Regisztráció</title>
+</head>
+<body>
+
+	<div>
+
+		<form name="registration" th:action="@{/reg}" th:object="${user}" method="post">
+			<h2 >Kérlek regisztrálj</h2>
+				<input type="text" id="userName" name="userName" th:field="*{userName}" placeholder="Teljes név"  /> 
+		 	    <input type="text" id="userEmail" name="userEmail" th:field="*{userEmail}" placeholder="E-mail cím"  /> 
+			    <input type="password" id="userPassword" name="userPassword" th:field="*{userPassword}" placeholder="Jelszó" />
+			<button type="submit">Regisztráció</button>
+		</form> 
+
+	</div>
+
+</body>
+</html>

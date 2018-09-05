@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<link rel="shortcut icon" href="">
+	<link rel="stylesheet" type="text/css" th:href="@{/css/foundation.min.css}"/>
+	<link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+	<title>Spring project</title>
+</head>
+<body>
+
+	<nav class="hover-underline-menu" data-menu-underline-from-center>
+	  <ul class="menu align-center">
+	    <li><a href="/" class="underline-from-center">Kezdőlap</a></li>
+	    <li><a href="/sailboats" class="underline-from-center">Vitorlások</a></li>
+	    <li><a href="#" class="underline-from-center">Foglalásaim</a></li>
+	    <li><a href="#" class="underline-from-center">Adatlap</a></li>
+	    <li><a href="#" sec:authorize="hasAuthority('ROLE_ADMIN')" class="underline-from-center">Foglalások kezelése</a></li>
+	    <li><a href="#" sec:authorize="hasAuthority('ROLE_ADMIN')" class="underline-from-center">Vitorlások kezelése</a></li>
+	    <li><a href="#" sec:authorize="hasAuthority('ROLE_ADMIN')" class="underline-from-center">Felhasználók kezelése</a></li>
+	    <li><a href="#" sec:authorize="hasAuthority('ROLE_ADMIN')" class="underline-from-center">Személy meghívása</a></li>
+	  </ul>
+	</nav>
+
+	<div style="height:70px;">
+		<div class="div-text-and-background-color welcome-div-style">
+		    Üdvözlünk <span sec:authentication="name">Anonymous </span>
+		       <form sec:authorize="isAuthenticated()" id="frmlogout" th:action="@{/logout}" method="post">
+		 			<a href="javascript:{}" onclick="document.getElementById('frmlogout').submit(); return false;"  style="color:white;font-weight:bold;text-decoration: underline;">Kijelentkezés</a>
+		   	</form>
+	   	</div>
+	</div>
+	<div layout:fragment="content">
+	
+	</div>
+	
+	<script>
+	</script>
+	
+</body>
+</html>

@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="hu"	
+	layout:decorator="layouts/main">
+<head>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.7.2/angular.js"></script>
+    <title>Spring project</title>
+
+</head>
+<body>
+
+<div layout:fragment="content" class="row">
+   
+	<div ng-app="mainApp" ng-controller="MainCtrl" class="small-12 small-centered columns">
+	    <h1 class="text-center blue-text-color">Hírek</h1>
+	    <form class="story-stlye div-text-and-background-color" sec:authorize="hasAuthority('ROLE_ADMIN')">
+	    	<label class="text-color-white" style="font-weight:bold;">Cím
+          		<input type="text" placeholder="Poszt címe" ng-model="title" >
+        	</label>
+        	<label class="text-color-white"  style="font-weight:bold;">Szöveg
+			  <textarea placeholder="Poszt szövege" ng-model="content" ></textarea>
+			</label>
+			<button class="button right expanded" ng-click="addUser(title, content)">Küldés</button>
+	    </form>
+	    <div>
+            <div ng-repeat="story in Stories" class="story-stlye div-text-and-background-color">
+            	<h4>{{story.postTitle}}</h4>
+                <div>{{story.content}} </div>
+                <p style="float:right;">{{story.posted | date:'MM/dd/yyyy  h:mm'}}</p>
+                <button class="button expand" style="width:100%;" type="button" sec:authorize="hasAuthority('ROLE_ADMIN')" ng-click="remove(story)">Törlés</button>
+            </div>
+    	</div>
+	</div>
+	
+	<script>
+		var mainApp = angular.module("mainApp", []);
+		mainApp.controller('MainCtrl', function ($scope, $http) {
+		    $http.get('/getStories').then(function(data) {
+		       $scope.Stories = data.data;
+		    });
+		    $scope.addUser = function(title, content){
+		    	var urlStr = '/addStory?storyTitle='+title+"&storyContent="+content;
+		    	$http({
+			        url: urlStr,
+			        method: "GET"
+			    })
+			    .then(function(response) {
+			           if (response.data){
+			        	   alert("sikeres művelet");
+			        	   $http.get('/getStories').then(function(data) {
+			    		       $scope.Stories = data.data;
+			    		    });
+			           }else{
+			        	   alert("sikertelen  művelet");
+			           }
+			    }, 
+			    function(response) { // optional
+			            alert(response.data.message);
+			    });
+		    }
+		    $scope.remove = function(story) { 
+				   var index = $scope.Stories.indexOf(story);
+				   var urlStr = '/deleteStory?storyId='+story.id;
+				   $http({
+				        url: urlStr,
+				        method: "POST"
+				    })
+				    .then(function(response) {
+				           if (response.status == 200){
+				        	   alert("sikeres törlés");
+				        	   $scope.Stories.splice(index, 1);
+				           }else{
+				        	   alert("sikertelen  törlés");
+				           }
+				    }, 
+				    function(response) { // optional
+				            alert(response.data.message);
+				    });
+				   
+				 }
+		});
+
+	</script>
+</div>
+
+<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script> -->
+<!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js" ></script> -->
+</body>
+</html>

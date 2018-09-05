@@ -1,5 +1,4 @@
-# StsProject
-Vitorlás foglalási rendszer
+# Vitorlás foglalási rendszer
 
 A project célja, hogy a Balatoni Vitorlásklubnak a foglalási rendszerét digitalizálja.
 <pre>

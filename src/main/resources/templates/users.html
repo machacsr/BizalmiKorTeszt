@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="hu"	
+	layout:decorator="layouts/main">
+<head>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.7.2/angular.js"></script>
+    <title>Spring project</title>
+
+</head>
+<body>
+
+<div layout:fragment="content">
+   
+	<div ng-app="mainApp">
+	    <h4>Elemek listázása</h4>
+	    <div ng-controller="MainCtrl">
+	        <ul>
+	            <li ng-repeat="user in Users">
+	                {{$index + 1}}.  Azonosító: {{user.userId }} | Név: {{ user.userName}} | Email: {{user.userEmail}} 
+	            	<button ng-click="remove(user)">Delete</button>
+	            </li>
+	        </ul>
+	        
+	        <h4>Felhasználó hozzáadása</h4>
+	        <form name="registration" method="get">
+				<input type="text" id="userName" name="userName" ng-model="userName" placeholder="Teljes név"  /> 
+		 	    <input type="text" id="userEmail" name="userEmail" ng-model="userEmail" placeholder="E-mail cím"  /> 
+			<button ng-click="addUser(userName, userEmail)">Regisztráció</button>
+		</form> 
+	    </div>
+	</div>
+	
+	<script>
+		var mainApp = angular.module("mainApp", []);
+		mainApp.controller('MainCtrl', function ($scope, $http) {
+		    $http.get('/getUsers').then(function(data) {
+		       $scope.Users = data.data;
+		    });
+		    $scope.remove = function(user) { 
+			   var index = $scope.Users.indexOf(user);
+			   $scope.Users.splice(index, 1);
+			   var urlStr = '/deleteUser?UserId='+user.userId;
+			   $http({
+			        url: urlStr,
+			        method: "GET"
+			    })
+			    .then(function(response) {
+			           if (response.data){
+			        	   alert("sikeres törlés");
+			           }else{
+			        	   alert("sikertelen  törlés");
+			           }
+			    }, 
+			    function(response) { // optional
+			            alert(response.data.message);
+			    });
+			   
+			 }
+		    $scope.addUser = function(userName, userEmail) {
+		    	if (!userName || !userEmail){
+		    		alert("kötelező kitölteni a mezőket!");
+		    		return;
+		    	}
+		    	var urlStr = '/addUser?UserName=' + userName + '&UserEmail=' + userEmail;
+		   		$http({
+		   			url : urlStr,
+		   			method: "GET"
+		   		})
+		   		.then(function(response) {
+			           if (response.data){
+			        	   $http.get('/getUsers').then(function(data) {
+			    		       $scope.Users = data.data;
+			    		    });
+			        	   alert("sikeres hozzáadás");
+		        	   }else{
+			        	   alert("sikertelen hozzáadás");
+			           }
+			    }, 
+			    function(response) { // optional
+			            alert(response.data.message);
+			    });
+		   	}
+		   }
+		);
+
+	</script>
+</div>
+
+<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script> -->
+<!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js" ></script> -->
+</body>
+</html>

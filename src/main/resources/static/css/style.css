@@ -1,0 +1,242 @@
+body, html {
+   height:100%;
+   background-color:white;
+}
+
+.height-max {
+	height:100%
+}
+
+.blue-text-color {
+	color: #19a7ff;
+}
+
+.div-text-and-background-color{
+	color:white;
+	background-color:#19a7ff;
+}
+
+.text-color-white{
+	color:white;
+}
+
+.reservation-link:hover{
+	color:lightgreen;
+	transition: all 0.5s ease;
+}
+
+.story-stlye{
+	box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+	padding:25px;
+	text-align: justify;
+    text-justify: inter-word;
+    margin:20px;
+}
+
+.card-hover:hover {
+  box-shadow: 0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22);
+  transition: all 0.3s cubic-bezier(.25,.8,.25,1);
+}
+
+.welcome-div-style{
+	float:right;
+	padding-left: 60px;
+	padding-right: 60px;
+	border-bottom-left-radius: 100px;
+	padding-top: 10px;
+	height: 70px;
+	font-weight:bold;
+}
+
+<!-- menü     -->
+
+.hover-underline-menu {
+  width: 100%;
+}
+
+.hover-underline-menu .menu {
+  background-color: #19a7ff;
+}
+
+.hover-underline-menu .menu a {
+  color: #fefefe;
+  padding: 1.2rem 1.5rem;
+}
+
+.hover-underline-menu .menu .underline-from-center {
+  position: relative;
+}
+
+.hover-underline-menu .menu .underline-from-center::after {
+  content: "";
+  position: absolute;
+  top: calc(100% - 0.125rem);
+  border-bottom: 0.125rem solid #fefefe;
+  left: 50%;
+  right: 50%;
+  transition: all 0.5s ease;
+}
+
+.hover-underline-menu .menu .underline-from-center:hover::after {
+  left: 0;
+  right: 0;
+  transition: all 0.5s ease;
+}
+
+<!-- menü end -->
+
+<!-- flip animation css -->
+.flip-container {
+  -webkit-perspective: 1000;
+  -moz-perspective: 1000;
+  -o-perspective: 1000;
+  perspective: 1000;
+
+  border: 1px solid #ccc;
+}
+
+  .flip-container:hover .flipper,  
+  .flip-container.hover .flipper {
+    -webkit-transform: rotateY(180deg);
+    -moz-transform: rotateY(180deg);
+    -o-transform: rotateY(180deg);
+    transform: rotateY(180deg);
+  }
+
+.flip-container, .front, .back {
+  width: 100%;
+  height: 400px;
+  color:white;
+}
+
+.flipper {
+  -webkit-transition: 0.6s;
+  -webkit-transform-style: preserve-3d;
+
+  -moz-transition: 0.6s;
+  -moz-transform-style: preserve-3d;
+
+  -o-transition: 0.6s;
+  -o-transform-style: preserve-3d;
+
+  transition: 0.6s;
+  transform-style: preserve-3d;
+
+  position: relative;
+}
+
+.front, .back {
+  -webkit-backface-visibility: hidden;
+  -moz-backface-visibility: hidden;
+  -o-backface-visibility: hidden;
+  backface-visibility: hidden;
+
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.front {
+  z-index: 2;
+}
+
+.back {
+  -webkit-transform: rotateY(180deg);
+  -moz-transform: rotateY(180deg);
+  -o-transform: rotateY(180deg);
+  transform: rotateY(180deg);
+
+}
+
+.front .name {
+  font-size: 2em;
+  display: inline-block;
+  background: rgba(33, 33, 33, 0.9);
+  font-family: Courier;
+  padding: 5px 10px;
+  border-radius: 5px;
+  bottom: 60px;
+  left: 25%;
+  position: absolute;
+  text-shadow: 0.1em 0.1em 0.05em #333;
+
+  -webkit-transform: rotate(-20deg);
+  -moz-transform: rotate(-20deg);
+  -o-transform: rotate(-20deg);
+  transform: rotate(-20deg);
+}
+
+.back p {
+  position: absolute;
+  bottom: 40px;
+  left: 0;
+  right: 0;
+  text-align: center;
+  padding: 0 20px;
+  font-family: arial;
+  line-height: 2em;
+}
+<!-- flip animation css end -->
+
+<!-- Foglalás! animation -->
+.container-fade {
+  position: relative;
+  width: 100%;
+}
+
+.image-fade {
+  display: block;
+  width: 100%;
+  height: 350px;
+}
+
+.overlay-fade {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 100%;
+  width: 100%;
+  opacity: 0;
+  transition: .5s ease;
+  background-color: #19a7ff;
+}
+
+.container-fade:hover .overlay-fade {
+  opacity: 1;
+}
+
+.text-fade {
+  color: white;
+  font-size: 20px;
+  font-weight: bold;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  text-align: center;
+}
+<!-- Foglalás! animaton end -->
+
+<!-- Table css -->
+table{
+	background-color:#19a7ff;
+	color:white;
+	border: none;
+}
+table thead {
+    background-color: transparent;
+    color: white;
+    border:none;
+}
+table tbody {
+	border: none;
+}
+table.unstriped tbody tr{
+	background-color: #19a7ff;
+	color:white;
+}
+<!-- Table css end -->

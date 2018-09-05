@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="hu" layout:decorator="layouts/main">
+<head>
+
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.7.2/angular.js"></script>
+<title>Spring project</title>
+
+</head>
+<body>
+
+	<div layout:fragment="content">
+
+		<div ng-app="mainApp" ng-controller="MainCtrl" class="row small-12">
+			<h1 class="column small-12 large-12 text-center blue-text-color">Vitorlások</h1>
+			<div class="row align-center small-12 large-12 text-center">
+				<div
+					class="card story-stlye div-text-and-background-color float-center column large-3 small-4 card-hover"
+					style="padding: 0px;" th:each="sailboat : ${sailboats}"
+					th:object="${sailboat}" th:if="${sailboat.state} == true">
+					<div class="card-section text-center">
+						<p th:text="${sailboat.name}" style="font-weight: bold;">Foglalható
+							vitorlás</p>
+					</div>
+					<div class="container-fade" style="position: relative;">
+						<img th:src="@{/img/sailboat1.jpg}" class="image-fade">
+						<div class="overlay-fade">
+							<div class="text-fade">
+								<p class="text-color-white">Férőhely:
+									[[${sailboat.capacity}]]</p>
+								<a
+									th:href="@{/sailboats/reservation?SailboatName=__${sailboat.name}__}"
+									class="text-color-white reservation-link" type="submit">Foglalás!</a>
+							</div>
+						</div>
+					</div>
+					<button sec:authorize="hasAuthority('ROLE_ADMIN')"
+						th:if="${sailboat.state} == true" type="button"
+						class="alert button expanded large"
+						th:attr="ng-click='setSailboatState(\''+${sailboat.name}+'\',\''+${sailboat.state}+'\');'">Deaktiválás</button>
+				</div>
+				<div sec:authorize="hasAuthority('ROLE_ADMIN')"
+					class="card story-stlye div-text-and-background-color float-center column large-3 small-4 card-hover"
+					style="padding: 0px;" th:each="sailboat : ${sailboats}"
+					th:object="${sailboat}" th:if="${sailboat.state} == false">
+					<div class="card-section text-center">
+						<p th:text="${sailboat.name}" style="font-weight: bold;">Foglalható
+							vitorlás</p>
+					</div>
+					<div class="container-fade" style="position: relative;">
+						<img th:src="@{/img/sailboat1.jpg}" class="image-fade">
+						<div class="overlay-fade">
+							<div class="text-fade">
+								<a
+									th:attr="ng-click='deleteSailboat(\''+${sailboat.name}+'\');'"
+									style="color: red;">Törlés!</a>
+							</div>
+						</div>
+					</div>
+
+					<button th:if="${sailboat.state} == false" type="button"
+						class="button expanded large float-left"
+						th:attr="ng-click='setSailboatState(\''+${sailboat.name}+'\',\''+${sailboat.state}+'\');'">Aktiválás</button>
+
+
+				</div>
+				<div sec:authorize="hasAuthority('ROLE_ADMIN')"
+					class="card story-stlye div-text-and-background-color float-center column large-3 small-4 card-hover"
+					style="padding: 0px;">
+					<div class="card-section">
+						<p class="text-center">Vitorlás hozzáadása</p>
+					</div>
+
+					<div class="flip-container"
+						ontouchstart="this.classList.toggle('hover');">
+						<div class="flipper">
+							<div class="front">
+								<img th:src="@{/img/uploadIcon1.png}"
+									style="width: 400px; height: 350px">
+							</div>
+							<div class="back column float-center">
+								<label style="color: white;">Vitorlás megnevezése <input
+									type="text" placeholder="Megnevezés" ng-model="name">
+								</label> <label style="color: white;">Szállítható személyek
+									száma <input type="number" value="1" placeholder="Kapacitás"
+									ng-model="cap">
+								</label>
+								<fieldset class="">
+									<legend>Aktiválja a vitorlást?</legend>
+									<input id="checkbox1" type="checkbox" checked
+										ng-model="activate"><label for="checkbox1">Aktiválom</label>
+								</fieldset>
+								<label style="color: white;">Fotó feltöltése <input
+									type="text" placeholder="Opcionális" disabled ng-model="photo">
+								</label>
+								<button class="button expanded large"
+									ng-click="addSailboat(name,cap,activate,photo)">Vitorlás
+									rögzítése</button>
+							</div>
+						</div>
+					</div>
+
+
+
+				</div>
+			</div>
+
+
+
+			<script>
+				var mainApp = angular.module("mainApp", []);
+				mainApp
+						.controller(
+								'MainCtrl',
+								function($scope, $http, $window) {
+									$http.get('/getSailboats').then(
+											function(data) {
+												$scope.Users = data.data;
+											});
+									$scope.addSailboat = function(name, cap,
+											activate, photo) {
+										if (!angular.isNumber(cap)) {
+											alert("A kapacitást számmal kell megadni!");
+											return;
+										}
+										var urlStr = "/addSailboat?sailboatName="
+												+ name
+												+ "&sailboatCapacity="
+												+ cap
+												+ "&sailboatState="
+												+ (activate ? '1' : '0');
+										$http({
+											url : urlStr,
+											method : "POST"
+										})
+												.then(
+														function(response) {
+															if (response) {
+																alert(response.data.message);
+																if (response.data.message == "Ok!")
+																	$window.location
+																			.reload();
+															} else {
+																alert("sikertelen  művelet");
+															}
+														},
+														function(response) { // optional
+															alert(response.message);
+														});
+									};
+									$scope.setSailboatState = function(name,
+											state) {
+										if (state == "true") {
+											state = 0;
+										} else {
+											state = 1;
+										}
+										var urlStr = "/setSailboatState?sailboatName="
+												+ name
+												+ "&sailboatState="
+												+ state;
+										$http({
+											url : urlStr,
+											method : "POST"
+										}).then(function(response) {
+											if (response.data) {
+												alert("sikeres művelet");
+												$window.location.reload();
+											} else {
+												alert("sikertelen  művelet");
+											}
+										}, function(response) { // optional
+											alert(response.data.message);
+										});
+									};
+									$scope.deleteSailboat = function(
+											sailboatName) {
+										var urlStr = "deleteSailboat?sailboatName="
+												+ sailboatName;
+										$http({
+											url : urlStr,
+											method : "POST"
+										}).then(function(response) {
+											if (response.data) {
+												alert("sikeres művelet");
+												$window.location.reload();
+											} else {
+												alert("sikertelen  művelet");
+											}
+										}, function(response) { // optional
+											alert(response.data.message);
+										});
+									};
+								});
+			</script>
+		</div>
+
+		<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script> -->
+		<!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js" ></script> -->
+</body>
+</html>

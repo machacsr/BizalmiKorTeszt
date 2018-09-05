@@ -2,7 +2,7 @@
 Vitorlás foglalási rendszer
 
 A project célja, hogy a Balatoni Vitorlásklubnak a foglalási rendszerét digitalizálja.
-
+<pre>
 Feladat állapota: <br />
   0 - nincs elkezdve <br />
   1 - fejlesztés alatt <br />
@@ -31,3 +31,4 @@ Feladat állapota: <br />
      
 !!!WARNING!!!
 Az egész projekt feljesztés alatt van, jelenleg a regisztráció után admin jogot kap aki regisztrál, így nincs lehetőség megtekinteni a felhasználó oldalt.
+</pre>

@@ -8,11 +8,13 @@ public interface UserService {
 	
 	public User findByEmail(String email);
 
-	public void registerUser(User user);
+	public String registerUser(User user);
 	
 	public List<User> getUsers();
 
 	public boolean saveUser(String name, String email);
 
 	public boolean deleteUser(Integer userId);
+	
+	public User FindByUserId(Integer id);
 }

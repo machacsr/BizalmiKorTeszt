@@ -4,20 +4,26 @@
 	xmlns:th="http://www.thymeleaf.org"
 	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 <head>
-<title>Regisztráció</title>
+	<link rel="stylesheet" type="text/css" th:href="@{/css/foundation.min.css}"/>
+	<link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<title>Regisztráció</title>
 </head>
 <body>
 
-	<div>
-
-		<form name="registration" th:action="@{/reg}" th:object="${user}" method="post">
-			<h2 >Kérlek regisztrálj</h2>
-				<input type="text" id="userName" name="userName" th:field="*{userName}" placeholder="Teljes név"  /> 
-		 	    <input type="text" id="userEmail" name="userEmail" th:field="*{userEmail}" placeholder="E-mail cím"  /> 
-			    <input type="password" id="userPassword" name="userPassword" th:field="*{userPassword}" placeholder="Jelszó" />
-			<button type="submit">Regisztráció</button>
-		</form> 
-
+	<div class="row align-center height-max animated flipInY">
+		<div class="row align-middle small-4">
+			<form name="registration" th:action="@{/reg}" th:object="${user}" method="post" class="column small-12">
+				<h2 class="row align-center">Regisztráció</h2>
+					<input type="text" id="userName" name="userName" th:field="*{userName}" placeholder="Teljes név"  /> 
+			 	    <input type="text" id="userEmail" name="userEmail" th:field="*{userEmail}" placeholder="E-mail cím"  /> 
+				    <input type="password" id="userPassword" name="userPassword" th:field="*{userPassword}" placeholder="Jelszó" />
+				<button type="submit" class="column align-center button">Regisztráció</button>
+			</form> 
+		</div>
 	</div>
 
 </body>

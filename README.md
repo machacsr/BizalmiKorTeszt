@@ -28,7 +28,6 @@ Feladat állapota: <br />
       képes legyen teljeskörűen adminisztrálni a felhasználókat. (0)
       képes legyen meghívót email cím alapján. (0)
       képes legyen hírt, oldalszabályzatot közzéteni a weboldalon, melyet tud törölni. (2)
-     
+ </pre>    
 !!!WARNING!!!
 Az egész projekt feljesztés alatt van, jelenleg a regisztráció után admin jogot kap aki regisztrál, így nincs lehetőség megtekinteni a felhasználó oldalt.
-</pre>

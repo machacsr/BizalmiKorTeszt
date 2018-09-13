@@ -67,4 +67,10 @@ public class HomeController {
 		}
 
 	}
+	
+	@RequestMapping("/reservations")
+	public String reservations(HttpServletRequest request) {
+		return "myReservations";
+		
+	}
 }

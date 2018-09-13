@@ -30,9 +30,12 @@ public class SailboatService {
 		}
 		
 		Sailboat sailboat = sailboatRepo.save(new Sailboat(sailboatName, sailboatCapacity, sailboatState));
-		if (sailboat != null)
-			return "Ok!";
-		return "Hiba a tranzakció közben!";
+		
+		if (sailboat == null)
+			return "Hiba a tranzakció közben!";
+		
+		
+		return "Ok!";
 	}
 
 	public boolean setSailboatState(String sailboatName, boolean sailboatState) {

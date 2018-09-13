@@ -1,5 +1,7 @@
 package com.teszt.service;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.time.Year;
 import java.time.YearMonth;
 import java.util.Date;
@@ -23,21 +25,39 @@ public class ReservationService {
 		this.reservationRepo = reservationRepo;
 	}
 
-	public List<Reservation> getReservationsByMonth(byte month) {
+	public List<Reservation> getReservationsByMonth(Integer month, String saibloatId) {
 		int year = Year.now().getValue();
 		YearMonth yearMonthObject = YearMonth.of(year, month);
 		int daysInMonth = yearMonthObject.lengthOfMonth();
 
-		String start = Integer.toString(year) + "-" + Byte.toString(month) + "-01 00:00:00";
-		String end = Integer.toString(year) + "-" + Byte.toString(month) + "-" + daysInMonth + " 23:59:59";
-		;
-
-		return reservationRepo.findByMonth(start, end);
+		String start = Integer.toString(year) + "-" + Integer.toString(month) + "-01 00:00:00";
+		String end = Integer.toString(year) + "-" + Integer.toString(month) + "-" + daysInMonth + " 23:59:59";
+		
+		return reservationRepo.findByMonth(start, end, saibloatId);
 	}
 
-	public void addReservation(Sailboat sailboat, User user,
-			String startTime, String endTime, String persons) {
+	public String addReservation(Sailboat sailboat, User user, String startTime, String endTime, String persons) {
+		DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		Date startTimeDate = null;
+		Date endTimeDate = null;
+		try {
+			startTimeDate = df.parse(startTime);
+			endTimeDate = df.parse(endTime);
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
 		
-		reservationRepo.save(new Reservation(sailboat, user, new Date(startTime), new Date(endTime), persons));
+		Reservation reservation = new Reservation(sailboat, user, startTimeDate, endTimeDate, persons);
+		
+		reservationRepo.save(reservation);
+		user.addReservation(reservation);
+		return "Sikeres foglalás!";
+	}
+
+	public List<Reservation> getReservationsByUserByYear(User user) {
+		
+		String thisYear = Year.now().toString() + "-01-01 00:00:00";
+		
+		return reservationRepo.findByUserByYear(thisYear, user.getUserId());
 	}
 }

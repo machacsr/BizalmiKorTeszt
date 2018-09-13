@@ -2,6 +2,7 @@ package com.teszt.service;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,10 +26,14 @@ public class StoryService {
 	}
 	
 	public void saveStory(String title, String content, User user) {
-		storyRepo.save(new Story(title, content, new Date(), user));
+		Story story = new Story(title, content, new Date(), user);
+		user.addStory(story);
+		storyRepo.save(story);
 	}
 
-	public void deleteStory(Long storyId) {
+	public void deleteStory(Long storyId, User user) {
+		Optional<Story> story = storyRepo.findById(storyId);
+		user.deleteStory(story.get());
 		storyRepo.deleteById(storyId);
 	}
 

@@ -109,4 +109,12 @@ public class UserServiceImpl implements UserService, UserDetailsService{
 		return userRepository.findByUserId(id);
 	}
 
+	@Override
+	public String FindUserNameByEmail(String email) {
+		User user = userRepository.findByUserEmail(email);
+		return user.getUserName();
+	}
+
+
+
 }

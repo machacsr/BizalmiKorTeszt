@@ -17,4 +17,6 @@ public interface UserService {
 	public boolean deleteUser(Integer userId);
 	
 	public User FindByUserId(Integer id);
+	
+	public String FindUserNameByEmail(String email);
 }

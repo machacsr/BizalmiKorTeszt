@@ -16,9 +16,9 @@ Feladat állapota:
       képes legyen megtekinteni az adott vitorlásnak a lefoglalt időpontjait. (2)
       képes legyen kitölteni a foglalási űrlapot. (2)
         foglalási űrlap validálása frontend oldalról. (2)
-        foglalási űrlap validálása back-end oldalról. (1)
-        foglalási űrlap felvitele adatbázisba. (1)
-      képes legyen a saját foglalásait kilistázni. (0)
+        foglalási űrlap validálása back-end oldalról. (2)
+        foglalási űrlap felvitele adatbázisba. (2)
+      képes legyen a saját foglalásait kilistázni. (2)
       képes legyen a weboldal híreit és szabályzatát megtekinteni. (2)
     Admin:
       képes legyen bejelentkezni a weboldalra, mely alapján azonosítani lehet. (2)

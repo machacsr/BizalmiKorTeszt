@@ -11,12 +11,14 @@
 
 	<div layout:fragment="content">
 
-		<div ng-app="mainApp" ng-controller="MainCtrl" class="row small-12">
-			<h1 class="column small-12 large-12 text-center blue-text-color">Vitorlások</h1>
+		<div ng-app="mainApp" ng-controller="MainCtrl" class="row align-center small-12 large-12">
+			<div class="column large-8 small-8">
+				<h1 class="column small-12 large-12 text-center div-title-style">Vitorlások</h1>
+			</div>
 			<div class="row align-center small-12 large-12 text-center">
 				<div
-					class="card story-stlye div-text-and-background-color float-center column large-3 small-4 card-hover"
-					style="padding: 0px;" th:each="sailboat : ${sailboats}"
+					class="card story-stlye div-text-and-background-color float-center column large-3 small-5 card-hover"
+					style="padding: 0px;border:0px;" th:each="sailboat : ${sailboats}"
 					th:object="${sailboat}" th:if="${sailboat.state} == true">
 					<div class="card-section text-center">
 						<p th:text="${sailboat.name}" style="font-weight: bold;">Foglalható
@@ -40,8 +42,8 @@
 						th:attr="ng-click='setSailboatState(\''+${sailboat.name}+'\',\''+${sailboat.state}+'\');'">Deaktiválás</button>
 				</div>
 				<div sec:authorize="hasAuthority('ROLE_ADMIN')"
-					class="card story-stlye div-text-and-background-color float-center column large-3 small-4 card-hover"
-					style="padding: 0px;" th:each="sailboat : ${sailboats}"
+					class="card story-stlye div-text-and-background-color float-center column large-3 small-5 card-hover"
+					style="padding: 0px;border:0px;" th:each="sailboat : ${sailboats}"
 					th:object="${sailboat}" th:if="${sailboat.state} == false">
 					<div class="card-section text-center">
 						<p th:text="${sailboat.name}" style="font-weight: bold;">Foglalható
@@ -65,8 +67,8 @@
 
 				</div>
 				<div sec:authorize="hasAuthority('ROLE_ADMIN')"
-					class="card story-stlye div-text-and-background-color float-center column large-3 small-4 card-hover"
-					style="padding: 0px;">
+					class="card story-stlye div-text-and-background-color float-center column large-3 small-5 card-hover"
+					style="padding: 0px;border:0px;">
 					<div class="card-section">
 						<p class="text-center">Vitorlás hozzáadása</p>
 					</div>

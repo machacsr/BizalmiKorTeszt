@@ -9,10 +9,10 @@
 </head>
 <body>
 
-<div layout:fragment="content" class="row">
+<div layout:fragment="content" class="row align-center expanded">
    
-	<div ng-app="mainApp" ng-controller="MainCtrl" class="small-12 small-centered columns">
-	    <h1 class="text-center blue-text-color">Hírek</h1>
+	<div ng-app="mainApp" ng-controller="MainCtrl" class="column small-11 large-8">
+	    <h1 class="text-center div-title-style">Hírek</h1>
 	    <form class="story-stlye div-text-and-background-color" sec:authorize="hasAuthority('ROLE_ADMIN')">
 	    	<label class="text-color-white" style="font-weight:bold;">Cím
           		<input type="text" placeholder="Poszt címe" ng-model="title" >
@@ -20,7 +20,11 @@
         	<label class="text-color-white"  style="font-weight:bold;">Szöveg
 			  <textarea placeholder="Poszt szövege" ng-model="content" ></textarea>
 			</label>
-			<button class="button right expanded" ng-click="addUser(title, content)">Küldés</button>
+			<div class="row align-right">
+				<div class="column small-4 large-4">
+					<button class="button expanded" ng-click="addUser(title, content)">Küldés</button>
+				</div>
+			</div>
 	    </form>
 	    <div>
             <div ng-repeat="story in Stories" class="story-stlye div-text-and-background-color">

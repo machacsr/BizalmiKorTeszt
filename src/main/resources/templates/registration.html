@@ -12,16 +12,18 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1" />
 	<title>Regisztráció</title>
 </head>
-<body>
+<body class="div-text-and-background-color">
 
-	<div class="row align-center height-max animated flipInY">
-		<div class="row align-middle small-4">
+	<div class="row align-center height-max">
+		<div class="row align-middle small-4 animated flipInY">
 			<form name="registration" th:action="@{/reg}" th:object="${user}" method="post" class="column small-12">
 				<h2 class="row align-center">Regisztráció</h2>
-					<input type="text" id="userName" name="userName" th:field="*{userName}" placeholder="Teljes név"  /> 
-			 	    <input type="text" id="userEmail" name="userEmail" th:field="*{userEmail}" placeholder="E-mail cím"  /> 
-				    <input type="password" id="userPassword" name="userPassword" th:field="*{userPassword}" placeholder="Jelszó" />
-				<button type="submit" class="column align-center button">Regisztráció</button>
+					<input class="text-align-center" type="text" id="userName" name="userName" th:field="*{userName}" placeholder="Teljes név"  /> 
+			 	    <input class="text-align-center" type="text" id="userEmail" name="userEmail" th:field="*{userEmail}" placeholder="E-mail cím"  /> 
+				    <input class="text-align-center" type="password" id="userPassword" name="userPassword" th:field="*{userPassword}" placeholder="Jelszó" />
+				<div class="row align-center">
+					<button type="submit" class="button">Regisztráció</button>
+				</div>
 			</form> 
 		</div>
 	</div>

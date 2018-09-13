@@ -13,21 +13,23 @@
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
 	<title>Bejelentkezés</title>
 </head>
-<body>
+<body class="div-text-and-background-color">
 
-	<div class="row align-center height-max animated flipInY">
-		<div class="row align-middle small-4">
+	<div class="row align-center height-max">
+		<div class="row align-middle small-4 animated flipInY">
 			<form name="login" th:action="@{/login}" method="post" class="column small-12">
 				<h2 class="row align-center">Bejelentkezés</h2>
 				<div id="err" th:if="${param.error}">Hibás felhasználói név és jelszó</div>
 				<div th:if="${param.logout}">Sikeresen kijelentkeztél</div>
-				<label for="username">Email cím</label> 
-				    <input type="text" id="username" name="username" placeholder="Email cím" required="true" /> 
-				<label for="password">Jelszó</label> 
-				    <input type="password" id="password" name="password" placeholder="Jelszó" required="true" />
-				<button type="submit" class="column align-center button">Bejelentkezés</button>
+				<label for="username" class="text-color-white text-align-center">Email cím</label> 
+				    <input class="text-align-center" type="text" id="username" name="username" placeholder="Email cím" required="true" /> 
+				<label for="password" class="text-color-white text-align-center">Jelszó</label> 
+				    <input class="text-align-center" type="password" id="password" name="password" placeholder="Jelszó" required="true" />
+			    <div class="row align-center">
+					<button type="submit" class="button">Bejelentkezés</button>
+				</div>
 				<br>
-		 		<a href="/registration" class="row align-center">Regisztrálni szeretnék</a>
+		 		<a href="/registration" class="row align-center text-color-white">Regisztrálni szeretnék</a>
 			</form>
 		</div>
 	</div>

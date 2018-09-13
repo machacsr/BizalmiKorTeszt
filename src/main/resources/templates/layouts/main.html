@@ -13,18 +13,17 @@
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
 	<title>Spring project</title>
 </head>
-<body>
+<body class="background">
 
 	<nav class="hover-underline-menu" data-menu-underline-from-center>
 	  <ul class="menu align-center">
 	    <li><a href="/" class="underline-from-center">Kezdőlap</a></li>
 	    <li><a href="/sailboats" class="underline-from-center">Vitorlások</a></li>
-	    <li><a href="#" class="underline-from-center">Foglalásaim</a></li>
+	    <li><a href="/reservations" class="underline-from-center">Foglalásaim</a></li>
 	    <li><a href="#" class="underline-from-center">Adatlap</a></li>
 	    <li><a href="#" sec:authorize="hasAuthority('ROLE_ADMIN')" class="underline-from-center">Foglalások kezelése</a></li>
-	    <li><a href="#" sec:authorize="hasAuthority('ROLE_ADMIN')" class="underline-from-center">Vitorlások kezelése</a></li>
 	    <li><a href="#" sec:authorize="hasAuthority('ROLE_ADMIN')" class="underline-from-center">Felhasználók kezelése</a></li>
-	    <li><a href="#" sec:authorize="hasAuthority('ROLE_ADMIN')" class="underline-from-center">Személy meghívása</a></li>
+	    <li><a href="/invite" sec:authorize="hasAuthority('ROLE_ADMIN')" class="underline-from-center">Személy meghívása</a></li>
 	  </ul>
 	</nav>
 
@@ -40,8 +39,9 @@
 	
 	</div>
 	
+	
 	<script>
 	</script>
-	
+
 </body>
 </html>

@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="hu" layout:decorator="layouts/main">
+<head>
+
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.7.2/angular.js"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script>
+<title>Spring project</title>
+
+</head>
+<body>
+
+	<div layout:fragment="content" class="row expanded align-right">
+		<div ng-app="mainApp" ng-controller="MainCtrl"
+			class="row align-center small-12 large-12">
+			<div class="column large-8 small-10">
+				<h1 class="column small-12 large-12 text-center div-title-style"
+					style="margin-bottom: 20px;">Foglalásaim</h1>
+			</div>
+			<div
+				class="row align-center small-10 large-9 story-stlye div-text-and-background-color">
+				<div class="row align-center align-middle small-12 large-10">
+					<h3 class="column small-12 large-12 align-center text-align-center">2018</h3>
+					<table class="unstriped">
+						<thead>
+							<tr>
+								<th width="80">Dátum</th>
+								<th width="170">Idő</th>
+								<th width="170">Vihető személyek</th>
+								<th width="120" colspan="2">Vitorlás</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr class="background-and-color"
+								ng-repeat="reservation in Reservations | orderBy : '-start'">
+								<td>{{reservation.start | date : "M. d"}}</td>
+								<td>{{reservation.start | date : "HH:mm"}} -
+									{{reservation.end | date : "HH:mm"}}</td>
+								<td>{{reservation.personsInNumber}}</td>
+								<td>{{reservation.sailboat.name}}</td>
+								<td width="150">
+									<div class="row align-center">
+										<button ng-if="reservation.active == true"
+											class="button small" style="margin: 0px;"
+											ng-confirm-click="Biztosan lemondod?"
+											confirmed-click="deleteRes(reservation)">Visszamondás</button>
+									</div>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+
+		<script>
+			var mainApp = angular.module("mainApp", []);
+			mainApp.controller('MainCtrl', function($scope, $http) {
+				$http.get('/getReservations').then(
+						function(data) {
+							$scope.Reservations = data.data;
+
+							angular.forEach($scope.Reservations, function(
+									value, key) {
+								var active = {
+									active : moment().isBefore(
+											moment(value.start).format(
+													"YYYY-MM-DD HH:mm:ss"))
+								};
+								angular.extend(value, active);
+							});
+						});
+				$scope.deleteRes = function(reservation) {
+					$http({
+						method: "POST",
+						url : "/deleteReservation/" + reservation.id
+					}).then(function(data){
+						console.log(data.data);
+					});
+				};
+			});
+			mainApp.directive('ngConfirmClick', [
+			    function(){
+			        return {
+			            link: function (scope, element, attr) {
+			                var msg = attr.ngConfirmClick || "Biztos vagy benne?";
+			                var clickAction = attr.confirmedClick;
+			                element.bind('click',function (event) {
+			                    if ( window.confirm(msg) ) {
+			                        scope.$eval(clickAction)
+			                    }
+			                });
+			            }
+			        };
+			}])
+		</script>
+	</div>
+
+
+</body>
+</html>

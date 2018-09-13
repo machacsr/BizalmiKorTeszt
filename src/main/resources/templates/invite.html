@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="hu" layout:decorator="layouts/main">
+<head>
+
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.7.2/angular.js"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script>
+<title>Spring project</title>
+
+</head>
+<body>
+
+	<div layout:fragment="content" class="row expanded align-right">
+		<div ng-app="mainApp" ng-controller="MainCtrl"
+			class="row align-center small-12 large-12">
+			<div class="column large-8 small-10">
+				<h1 class="column small-12 large-12 text-center div-title-style"
+					style="margin-bottom: 20px;">Személy meghívása</h1>
+			</div>
+			<div
+				class="row align-center small-10 large-9 story-stlye div-text-and-background-color">
+
+			</div>
+		</div>
+
+		<script>
+			var mainApp = angular.module("mainApp", []);
+			mainApp.controller('MainCtrl', function($scope, $http) {
+				$http.get('/getReservations').then(
+						function(data) {
+							$scope.Reservations = data.data;
+			});
+		</script>
+	</div>
+
+
+</body>
+</html>

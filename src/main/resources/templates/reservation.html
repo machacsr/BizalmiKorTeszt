@@ -13,117 +13,120 @@
 
 </head>
 <body>
-	<div layout:fragment="content" class="row column expanded align-right">
-		<div ng-app="mainApp" ng-controller="MainCtrl" class="row small-11">
-			<h1 class="column small-12 large-12 text-center blue-text-color">Foglalás</h1>
-			<div
-				class="row small-12 large-7 text-center align-center story-stlye div-text-and-background-color align-center">
-				<div class="column small-7 large-7 align-center">
-					<label class="text-color-white">Válasszon a hónapok közül <select
-						ng-model="selectedMonth"
-						ng-options="month.value for month in Months"
-						ng-change="getReservations(selectedMonth)">
-					</select>
-					</label>
-				</div>
-				<div class="row small-12 large-12 align-center">
-					<div class="column small-4 large-4">
-						<label class="text-color-white"> Nap <select
-							ng-model="startDay"
-							ng-options="day for day in getDaysInMonth(selectedMonth.key)">
-
+	<div layout:fragment="content" class="row expanded align-right">
+		<div ng-app="mainApp" ng-controller="MainCtrl" class="row align-center small-12 large-12">
+			<div class="column large-8 small-8">
+				<h1 class="column small-12 large-12 text-center div-title-style">Foglalás</h1>
+			</div>
+			<div class="row small-12 large-11 align-top">
+				<div
+					class="row small-11 large-6 text-center story-stlye div-text-and-background-color align-center">
+					<div class="column small-7 large-7 align-center">
+						<label class="text-color-white">Válasszon a hónapok közül <select
+							ng-model="selectedMonth"
+							ng-options="month.value for month in Months"
+							th:attr="ng-change='getReservations(selectedMonth,\''+${sailboat.name}+'\')'">
 						</select>
 						</label>
 					</div>
-					<div class="column small-8 large-8">
-						<div class="row align-center align-middle">
-							<div class="column small-5 large-5 expand">
-								<label class="text-color-white">Kezdés<select
-									ng-model="startHour" ng-options="hour for hour in getHours()">
-								</select>
-								</label>
-							</div>
-							<div class="column small-1 large-1 text-center">:</div>
-							<div class="column small-5 large-5 expand">
-								<label class="text-color-white"> ideje<select
-									ng-model="startMinute"
-									ng-options="minute for minute in getMinute()"
-									ng-change="getReservations(selectedMonth)">
-								</select>
-								</label>
+					<div class="row small-12 large-12 align-center">
+						<div class="column small-4 large-4">
+							<label class="text-color-white"> Nap <select
+								ng-model="startDay"
+								ng-options="day for day in getDaysInMonth(selectedMonth.key)">
+	
+							</select>
+							</label>
+						</div>
+						<div class="column small-8 large-8">
+							<div class="row align-center align-middle">
+								<div class="column small-5 large-5 expand">
+									<label class="text-color-white">Kezdés<select
+										ng-model="startHour" ng-options="hour for hour in getHours()">
+									</select>
+									</label>
+								</div>
+								<div class="column small-1 large-1 text-center">:</div>
+								<div class="column small-5 large-5 expand">
+									<label class="text-color-white"> ideje<select
+										ng-model="startMinute"
+										ng-options="minute for minute in getMinute()"
+										ng-change="konzollog()">
+									</select>
+									</label>
+								</div>
 							</div>
 						</div>
 					</div>
-				</div>
-				<div class="row small-12 large-12 align-center">
-					<div class="column small-4 large 4">
-						Személyek <input type="number" ng-value="1" min="1"
-							th:attr="max=${sailboat.capacity}" ng-model="persons">
-					</div>
-					<div class="column small-8 large-8">
-						<div class="row align-center align-middle">
-							<div class="column small-5 large-5 expand">
-								<label class="text-color-white">Befejezés<select
-									ng-model="endHour" ng-options="hour for hour in getHours()">
-								</select>
-								</label>
-							</div>
-							<div class="column small-1 large-1 text-center">:</div>
-							<div class="column small-5 large-5 expand">
-								<label class="text-color-white"> ideje<select
-									ng-model="endMinute"
-									ng-options="minute for minute in getMinute()"
-									ng-change="getReservations(selectedMonth)">
-								</select>
-								</label>
+					<div class="row small-12 large-12 align-center">
+						<div class="column small-4 large 4">
+							Személyek <input type="number" ng-value="1" min="1"
+								th:attr="max=${sailboat.capacity}" ng-model="persons">
+						</div>
+						<div class="column small-8 large-8">
+							<div class="row align-center align-middle">
+								<div class="column small-5 large-5 expand">
+									<label class="text-color-white">Befejezés<select
+										ng-model="endHour" ng-options="hour for hour in getHours()">
+									</select>
+									</label>
+								</div>
+								<div class="column small-1 large-1 text-center">:</div>
+								<div class="column small-5 large-5 expand">
+									<label class="text-color-white"> ideje<select
+										ng-model="endMinute"
+										ng-options="minute for minute in getMinute()">
+									</select>
+									</label>
+								</div>
 							</div>
 						</div>
 					</div>
-				</div>
-				<div class="row small-7 large-7 align-right">
-					<div class="column large-12 small-12" th:object="${sailboat}">
-						<button type="button" class="button expanded"
-							th:attr="ng-click='addReservation(selectedMonth,startDay,startHour,startMinute,endHour,endMinute,persons,\''+${sailboat.name}+'\',\''+${sailboat.capacity}+'\');'">Foglalás!</button>
+					<div class="row small-7 large-7 align-right">
+						<div class="column large-12 small-12" th:object="${sailboat}">
+							<button type="button" class="button expanded"
+								th:attr="ng-click='addReservation(selectedMonth,startDay,startHour,startMinute,endHour,endMinute,persons,\''+${sailboat.name}+'\',\''+${sailboat.capacity}+'\');'">Foglalás!</button>
+						</div>
+					</div>
+					<div class="alert row small-12 large-12 align-center">
+						<!-- 					<div class="column large-12 small-12"> -->
+						<!-- 						 -->
+						<!-- 						<p>This is an alert box.</p> -->
+						<!-- 					</div> -->
+						<div class="callout warning" id="callout-warning"
+							style="color: white; background-color: rgba(255, 213, 20, 1); display: none">
+							<h5>Hiba üzenet!</h5>
+							<p>{{calloutMessage}}</p>
+							<button class="close-button" aria-label="Dismiss alert"
+								type="button" onclick="this.parentElement.style.display='none';">
+								<span aria-hidden="true">&times;</span>
+							</button>
+						</div>
 					</div>
 				</div>
-				<div class="alert row small-12 large-12 align-center">
-					<!-- 					<div class="column large-12 small-12"> -->
-					<!-- 						 -->
-					<!-- 						<p>This is an alert box.</p> -->
-					<!-- 					</div> -->
-					<div class="callout warning" id="callout-warning"
-						style="color: white; background-color: rgba(255, 213, 20, 1); display: none">
-						<h5>Hiba üzenet!</h5>
-						<p>{{calloutMessage}}</p>
-						<button class="close-button" aria-label="Dismiss alert"
-							type="button" onclick="this.parentElement.style.display='none';">
-							<span aria-hidden="true">&times;</span>
-						</button>
-					</div>
+				<div
+					class="row align-top small-11 large-5 text-center story-stlye div-text-and-background-color"
+					th:attr="ng-init='getReservations(selectedMonth,\''+${sailboat.name}+'\')'">
+					<h3 class="column small-12 large-12">{{selectedMonth.value}}</h3>
+					<table class="unstriped">
+						<thead>
+							<tr>
+								<th width="100">Dátum</th>
+								<th width="150">Idő</th>
+								<th width="150">Foglalta</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr class="background-and-color"
+								ng-repeat="reservation in Reservations | orderBy : 'start'">
+								<td>{{reservation.start | date : "d"}}.</td>
+								<td>{{reservation.start | date : "HH:mm"}} -
+									{{reservation.end | date : "HH:mm"}}</td>
+								<td>{{reservation.user.userName}}</td>
+							</tr>
+						</tbody>
+					</table>
 				</div>
-			</div>
-			<div
-				class="row small-12 large-4 text-center story-stlye div-text-and-background-color"
-				ng-init="getReservations(selectedMonth)">
-				<h3 class="column small-12 large-12">{{selectedMonth.value}}</h3>
-				<table class="unstriped">
-					<thead>
-						<tr>
-							<th width="100">Dátum</th>
-							<th width="150">Idő</th>
-							<th width="150">Foglalta</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr class="background-and-color"
-							ng-repeat="reservation in Reservations | orderBy : 'start'">
-							<td>{{reservation.start | date : "d"}}.</td>
-							<td>{{reservation.start | date : "HH:mm"}} -
-								{{reservation.end | date : "HH:mm"}}</td>
-							<td>{{reservation.user.userName}}</td>
-						</tr>
-					</tbody>
-				</table>
 			</div>
 
 			<script>
@@ -174,11 +177,11 @@
 											.getMonth()];
 
 									$scope.getReservations = function(
-											selectedMonth) {
+											selectedMonth, sailboatName) {
 										$http(
 												{
 													url : "/getReservations/"
-															+ selectedMonth.key,
+															+ selectedMonth.key + "/" + sailboatName,
 													method : "GET"
 												})
 												.then(
@@ -186,7 +189,7 @@
 															$scope.Reservations = response.data;
 														});
 									};
-									$scope.startDay = 1;
+									$scope.startDay = new Date().getDate();
 									$scope.getDaysInMonth = function(month) {
 										var days = [];
 										for (i = 1; i <= moment(month)
@@ -213,7 +216,7 @@
 										minute.push("30");
 										return minute;
 									};
-
+									
 									$scope.addReservation = function(month,
 											day, startTime, startMinute,
 											endTime, endMinute, persons,
@@ -244,6 +247,25 @@
 										} else {
 											hideErrorMessage();
 										}
+										
+										var counter = 0;
+										angular.forEach($scope.Reservations, function(value, key){
+											var one = moment(startDate.format("YYYY-MM-DD HH:mm:ss")).isBetween(moment(value.start).format("YYYY-MM-DD HH:mm:ss"), moment(value.end).format("YYYY-MM-DD HH:mm:ss"), null);
+											var two = moment(endDate.format("YYYY-MM-DD HH:mm:ss")).isBetween(moment(value.start).format("YYYY-MM-DD HH:mm:ss"), moment(value.end).format("YYYY-MM-DD HH:mm:ss"), null);
+											var three = moment(startDate.format("YYYY-MM-DD HH:mm:ss")).isSame(moment(value.start).format("YYYY-MM-DD HH:mm:ss")) && 
+														moment(endDate.format("YYYY-MM-DD HH:mm:ss")).isSame(moment(value.end).format("YYYY-MM-DD HH:mm:ss"));
+											if (one || two || three)
+												counter++;
+										});
+										
+										if (counter != 0){
+											throwErrorMessage("Sajnons ez az időpont már foglalt. :(");
+											return;
+										} else {
+											hideErrorMessage();
+										}
+									
+										$http.get("/getCurrentUserName").then(function(data) {$scope.UserName=data.data.user});
 										$http
 												({
 													url : "/addReservation?sailboatName="
@@ -259,7 +281,19 @@
 												})
 												.then(
 														function(response) {
-															$scope.Reservations = response.data;
+															alert(response.data.message);
+															if (response.data.message == "Sikeres foglalás!"){
+																var object = {
+																	'start' : startDate.valueOf(),
+																	'end' : endDate.valueOf(),
+																	'sailboat' : Sailboat,
+																	'user':{
+																		'userName':$scope.UserName
+																	},
+																	'personsInNumber': persons};
+																
+																$scope.Reservations.push(object);
+															}
 														});
 									};
 

@@ -1,5 +1,6 @@
 package com.teszt.entity;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -23,7 +24,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 @Table (name = "users")
 public class User {
 	
-	@JsonIgnore
 	@Id @GeneratedValue @Column(unique = true)
 	private Integer userId;
 	
@@ -127,11 +127,29 @@ public class User {
 		this.stories = stories;
 	}
 	
+	public void addStory(Story story) {
+		if (this.stories == null || this.stories.isEmpty()) {
+			this.stories = new ArrayList<Story>();
+		}
+		this.stories.add(story);
+	}
+	
+	public void deleteStory(Story story) {
+		this.stories.remove(story);
+	}
+	
 	public List<Reservation> getReservations() {
 		return reservations;
 	}
 
 	public void setReservations(List<Reservation> reservations) {
 		this.reservations = reservations;
+	}
+	
+	public void addReservation(Reservation reservation) {
+		if (this.reservations == null || this.reservations.isEmpty()) {
+			this.reservations = new ArrayList<Reservation>();
+		}
+		this.reservations.add(reservation);
 	}
 }

@@ -1,10 +1,25 @@
 body, html {
    height:100%;
-   background-color:white;
+   min-height:100%
 }
 
 .height-max {
 	height:100%
+}
+
+.footer{
+	clear:both;
+	position:absolute;
+	bottom:0;
+	width:100%;
+	height:50px;
+}
+
+.button-align-middle {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
 }
 
 .blue-text-color {
@@ -18,6 +33,25 @@ body, html {
 
 .text-color-white{
 	color:white;
+}
+.text-align-center{
+	text-align:center;
+}
+
+.div-title-style{
+	color:white;
+	border-bottom: 1px solid;
+	font-weight:bold;
+}
+
+.background {
+    background: url('../img/background.jpg') repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    height: 100%;
+    overflow: auto;
 }
 
 .reservation-link:hover{

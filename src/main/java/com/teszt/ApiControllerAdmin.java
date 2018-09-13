@@ -66,8 +66,8 @@ public class ApiControllerAdmin {
 	}
 	
 	@RequestMapping(value = "/deleteStory", method = RequestMethod.POST)
-	public void deleteStory(@RequestParam(value="storyId", required = true) Long storyId) {
-		storyService.deleteStory(storyId);
+	public void deleteStory(@RequestParam(value="storyId", required = true) Long storyId, HttpServletRequest request) {
+		storyService.deleteStory(storyId, userService.findByEmail(request.getUserPrincipal().getName()));
 	}
 	
 	@RequestMapping(value = "/addSailboat", method = RequestMethod.POST, produces = "application/json")

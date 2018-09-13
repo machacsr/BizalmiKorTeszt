@@ -10,8 +10,13 @@ import com.teszt.entity.Reservation;
 
 public interface ReservationRepository extends CrudRepository<Reservation, Long> {
 
-	@Query(value = "select * from reservations where start >= :start and start <= :end", nativeQuery = true)
-	List<Reservation> findByMonth(@Param("start") String start, @Param("end") String end);
+	@Query(value = "select * from (select * from reservations where sailboat_id = :sailboatId) where start >= :start and start <= :end", nativeQuery = true)
+	List<Reservation> findByMonth(@Param("start") String start, @Param("end") String end, @Param("sailboatId") String sailboatId);
+	
+	@Query(value = "select * from (select * from reservations where user_user_id = :userId) where start >= :start", nativeQuery = true)
+	List<Reservation> findByUserByYear(@Param("start") String start, @Param("userId") Integer integer);
+	
+	
 
 
 }
